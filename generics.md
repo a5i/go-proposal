@@ -1,4 +1,4 @@
-# DRAFT
+# DRAFT: An alternative generics syntax
 
 This proposal has no description yet. 
 
