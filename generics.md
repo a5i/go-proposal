@@ -48,6 +48,14 @@ type List$[labix.org/v2/mgo/bson.M] struct {
 
 ```
 
+> Russ Cox: The generic dilemma is this: do you want slow programmers, slow compilers and bloated binaries, or slow execution times?
+
+When I use generics I want fast execution time and compile-time type checking. 
+
+I am able to pay I use only manual generics specialization. I will get as I think:
+* a little slow programmer
+* good enough compiler and binaries
+
 
 ## Syntax examples
 
