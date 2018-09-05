@@ -2,6 +2,19 @@
 
 This proposal has no description yet. 
 
+The basic idea is using generics as a function. For example, we have a type description in AST representation with not existing types TypeA and TypeB. We can transform this AST to another AST by type substitution like a template function.
+
+```
+// function for AST transformation
+func transform(ast AST, ...types) AST
+
+// get specialized AST
+newAST$int$string := transform(AST, int, string)
+```
+
+In this way, we can cache concreate type AST like templates.
+
+## Syntax examples
 
 ```go
 // Print prints the elements of a slice.
