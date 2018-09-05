@@ -46,7 +46,7 @@ func:(int, float64) Convert(src int) float64 {
 
 ```go
 type(Element) List struct {
-	next *List(Element)
+	next *List:(Element)
 	val  Element
 }
 
@@ -55,7 +55,7 @@ func (l *List) Add(e Element) {
 }
 
 func main() {
-    el := &Element:(sql.NullString)
+    list := &List:(sql.NullString)
     // ...
 }
 ```
