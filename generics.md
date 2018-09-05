@@ -14,6 +14,41 @@ newAST$int$string := transform(AST, int, string)
 
 In this way, we can cache concreate type AST like templates.
 
+We may think about it as a code generation. We know the package of the generic type and can generate code for template specialization like on the next example. 
+
+```go
+package list // github.com/my/list/list.go
+// also module github.com/my/list/v3
+type(Element) List struct {
+	// ...
+}
+
+// end of list.go
+
+// another code
+import "github.com/my/list"
+import "labix.org/v2/mgo/bson"
+func foo() {
+	data := &list.List:(bson.M){}
+	//...
+}
+```
+
+When the compiler works it is able to create a virtual file github.com/my/list/list$[labix.org/v2/mgo/bson.M].go and compiles it. Like the next code
+
+```go
+// github.com/my/list/list$[labix.org/v2/mgo/bson.M].go
+package list 
+import "labix.org/v2/mgo/bson"
+
+type List$[labix.org/v2/mgo/bson.M] struct {
+	val  bson.M
+	// ...
+}
+
+```
+
+
 ## Syntax examples
 
 ```go
@@ -55,7 +90,7 @@ func (l *List) Add(e Element) {
 }
 
 func main() {
-    list := &List:(sql.NullString)
+    list := &List:(sql.NullString){}
     // ...
 }
 ```
@@ -77,5 +112,33 @@ func(T stringer) Stringify(s []T) (ret []string) {
 		ret = append(ret, v.String()) // now valid
 	}
 	return ret
+}
+```
+
+## Other talks
+
+[Problem: What functions do we need to compile?](https://gist.github.com/rogpeppe/9fa9a267472fb80e9ddc4a940aa26e14)
+
+I think we should block automatic type specialization in templates declaration.
+
+```go
+package main
+import "fmt"
+
+func main() {
+	foo::(43)
+	foo::("hello")
+}
+
+func(T) foo(x T) {
+	bar::(&x) // it's wrong
+	bar::(make(chan T)) // it's wrong
+
+	bar:(*T)(&x) // it's good
+	bar:(chan T)(make(chan T)) // it's good
+}
+
+func(T) bar(x T) {
+	fmt.Println(x)
 }
 ```
