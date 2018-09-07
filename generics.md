@@ -69,7 +69,7 @@ func(TypeAlias) Print(s []TypeAlias) { // Just an example, not the suggested syn
 }
 
 func main() {
-    data := []int{1,2}
+	data := []int{1,2}
     Print:(int)(data) // manual function specialization
     Print::(data) // automatic compile time function specialization
 }
@@ -125,7 +125,7 @@ func(T stringer) Stringify(s []T) (ret []string) {
 
 ## Other talks
 
-[Problem: What functions do we need to compile?](https://gist.github.com/rogpeppe/9fa9a267472fb80e9ddc4a940aa26e14)
+@rogpeppe [Problem: What functions do we need to compile?](https://gist.github.com/rogpeppe/9fa9a267472fb80e9ddc4a940aa26e14)
 
 I think we should block automatic type specialization in templates declaration.
 
