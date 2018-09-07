@@ -1,6 +1,16 @@
-# DRAFT: An alternative generics syntax
+# Go2 generics: Extend `type` and `func` keywords
 
-This proposal has no description yet. 
+Pros:
+
+* minimal changes to source code parser
+* easy to understand when generics are used
+
+Cond:
+
+* adds a new operator `:` and `::`
+* unfamiliar generic definition syntax
+
+## The idea
 
 The basic idea is using generics as a function. For example, we have a type description in AST representation with not existing types TypeA and TypeB. We can transform this AST to another AST by type substitution like a template function.
 
