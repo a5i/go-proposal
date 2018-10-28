@@ -5,26 +5,14 @@ Pros:
 * minimal changes to source code parser
 * easy to understand when generics are used
 
-Cond:
+Cons:
 
-* adds a new operator `:` and `::`
 * unfamiliar generic definition syntax
+* adds a new operator `:` and `::` if needed I'm not sure
 
 ## The idea
 
-The basic idea is using generics as a function. For example, we have a type description in AST representation with not existing types TypeA and TypeB. We can transform this AST to another AST by type substitution like a template function.
-
-```
-// function for AST transformation
-func transform(ast AST, ...types) AST
-
-// get specialized AST
-newAST$int$string := transform(AST, int, string)
-```
-
-In this way, we can cache concreate type AST like templates.
-
-We may think about it as a code generation. We know the package of the generic type and can generate code for template specialization like on the next example. 
+Move the temlate type definition to type keyword.
 
 ```go
 package list // github.com/my/list/list.go
@@ -44,19 +32,6 @@ func foo() {
 }
 ```
 
-When the compiler works it is able to create a virtual file github.com/my/list/list$[labix.org/v2/mgo/bson.M].go and compiles it. Like the next code
-
-```go
-// github.com/my/list/list$[labix.org/v2/mgo/bson.M].go
-package list 
-import "labix.org/v2/mgo/bson"
-
-type List$[labix.org/v2/mgo/bson.M] struct {
-	val  bson.M
-	// ...
-}
-
-```
 
 > Russ Cox: The generic dilemma is this: do you want slow programmers, slow compilers and bloated binaries, or slow execution times?
 
@@ -79,7 +54,7 @@ func(TypeAlias) Print(s []TypeAlias) { // Just an example, not the suggested syn
 }
 
 func main() {
-	data := []int{1,2}
+    data := []int{1,2}
     Print:(int)(data) // manual function specialization
     Print::(data) // automatic compile time function specialization
 }
